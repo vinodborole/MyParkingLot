@@ -28,6 +28,10 @@ type ParkingLotRepository struct {
 const (
 	//WrongSizeParkingLotError error text for wrong size parking lot
 	WrongSizeParkingLotError = "parking Lot of Size <= 0 cannot be created"
+	//ParkingLotFullError error text for parking lot full
+	ParkingLotFullError = "sorry, parking lot is full"
+	//ParkingLotNotCreatedError error text for parking lot not created error
+	ParkingLotNotCreatedError = "parking Lot not created"
 )
 
 //Initialize initialize parking lot
@@ -56,6 +60,24 @@ func (pL *ParkingLotRepository) Initialize(numberOfSlots int) error {
 func (pL *ParkingLotRepository) VerifySlotInitialization(numberOfSlots int) (bool, error) {
 	if numberOfSlots <= 0 {
 		err := errors.New(WrongSizeParkingLotError)
+		return false, err
+	}
+	return true, nil
+}
+
+//IsParkingLotFull Verify if parking lot is full
+func (pL *ParkingLotRepository) IsParkingLotFull() (bool, error) {
+	if pL.emptySlots.Len() == 0 {
+		err := errors.New(ParkingLotFullError)
+		return true, err
+	}
+	return false, nil
+}
+
+//IsParkingLotCreated Verify if parking lot is created
+func (pL *ParkingLotRepository) IsParkingLotCreated() (bool, error) {
+	if !pL.parkingLotCreated {
+		err := errors.New(ParkingLotNotCreatedError)
 		return false, err
 	}
 	return true, nil

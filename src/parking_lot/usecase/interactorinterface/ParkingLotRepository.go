@@ -4,4 +4,6 @@ package interactorinterface
 type ParkingLotRepository interface {
 	Initialize(numberOfSlots int) error
 	VerifySlotInitialization(numberOfSlots int) (bool, error)
+	IsParkingLotFull() (bool, error)
+	IsParkingLotCreated() (bool, error)
 }

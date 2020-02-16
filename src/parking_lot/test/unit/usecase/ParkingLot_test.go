@@ -33,3 +33,14 @@ func TestParkLotInitialize_Failure(t *testing.T) {
 		t.Errorf("Test failed, expected: '%s', got error:  '%s'", expected, actual)
 	}
 }
+
+func TestParkLotFull(t *testing.T) {
+	expected := false
+	parkingLotRepo := gateway.ParkingLotRepository{}
+	pLInteract := usecase.ParkingLotInteract{ParkingLot: &parkingLotRepo}
+	pLInteract.ParkingLot.Initialize(5)
+	actual, _ := pLInteract.ParkingLot.IsParkingLotFull()
+	if actual != expected {
+		t.Errorf("Test failed, expected: '%v', got error:  '%v'", expected, actual)
+	}
+}
